@@ -8,7 +8,7 @@ module MeshPay
       end
 
       def get
-        @http.get("/health")
+        @http.get_public("/health")
       end
     end
   end

@@ -19,24 +19,19 @@ module MeshPay
         @http.get("/charges/#{charge_id}")
       end
 
-      def create(buyer_id:, seller_account_id:, amount:, currency: "USDC", idempotency_key: nil)
-        @http.post(
-          "/charges",
-          { buyer_id: buyer_id, seller_account_id: seller_account_id, amount: amount, currency: currency },
-          idempotency_key: idempotency_key
-        )
+      def create(body:, idempotency_key:)
+        @http.post("/charges", body, idempotency_key: idempotency_key)
       end
 
-      def fund(charge_id:, entity_secret_ciphertext:, idempotency_key: nil)
-        @http.post(
-          "/charges/#{charge_id}/fund",
-          { entity_secret_ciphertext: entity_secret_ciphertext },
-          idempotency_key: idempotency_key
-        )
+      def fund(charge_id:, body:, idempotency_key:)
+        @http.post("/charges/#{charge_id}/fund", body, idempotency_key: idempotency_key)
       end
 
-      def refund(charge_id:, amount: nil, idempotency_key: nil)
-        body = amount ? { amount: amount } : {}
+      def cancel(charge_id:, idempotency_key:)
+        @http.post("/charges/#{charge_id}/cancel", {}, idempotency_key: idempotency_key)
+      end
+
+      def refund(charge_id:, body: {}, idempotency_key:)
         @http.post("/charges/#{charge_id}/refund", body, idempotency_key: idempotency_key)
       end
     end

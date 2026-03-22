@@ -7,8 +7,16 @@ module MeshPay
         @http = http
       end
 
+      def list
+        @http.get("/accounts")
+      end
+
       def create(email:)
         @http.post("/accounts", { email: email })
+      end
+
+      def delete_membership(membership_id:)
+        @http.delete("/accounts/#{membership_id}")
       end
     end
   end

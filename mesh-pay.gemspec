@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "mesh-pay"
-  s.version     = "1.0.0"
+  s.version     = "2.0.0"
   s.summary     = "Mesh Pay API client for Ruby"
   s.authors     = ["Mesh Pay"]
   s.files       = Dir["lib/**/*.rb"]

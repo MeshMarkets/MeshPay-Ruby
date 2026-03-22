@@ -8,7 +8,10 @@ module MeshPay
       end
 
       def list
-        @http.get("/webhook-endpoints")
+        raw = @http.get("/webhook-endpoints")
+        return raw if raw.is_a?(Array)
+
+        raw.is_a?(Hash) && raw["data"].is_a?(Array) ? raw["data"] : []
       end
 
       def get(endpoint_id:)
@@ -30,6 +33,15 @@ module MeshPay
 
       def delete(endpoint_id:)
         @http.delete("/webhook-endpoints/#{endpoint_id}")
+      end
+
+      def list_deliveries(endpoint_id:, limit: nil)
+        params = {}
+        params[:limit] = limit if limit
+        raw = @http.get("/webhook-endpoints/#{endpoint_id}/deliveries", params.empty? ? nil : params)
+        return raw if raw.is_a?(Array)
+
+        raw.is_a?(Hash) && raw["data"].is_a?(Array) ? raw["data"] : []
       end
     end
   end
