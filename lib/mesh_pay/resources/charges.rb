@@ -23,6 +23,10 @@ module MeshPay
         @http.post("/charges", body, idempotency_key: idempotency_key)
       end
 
+      def create_pooled_charge(body:, idempotency_key:)
+        @http.post("/pooled-charges", body, idempotency_key: idempotency_key)
+      end
+
       def fund(charge_id:, body:, idempotency_key:)
         @http.post("/charges/#{charge_id}/fund", body, idempotency_key: idempotency_key)
       end

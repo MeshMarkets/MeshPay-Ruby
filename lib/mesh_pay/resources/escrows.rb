@@ -22,6 +22,18 @@ module MeshPay
         @http.post("/escrows/#{escrow_id}/release", {}, idempotency_key: idempotency_key)
       end
 
+      def create_contribution(escrow_id:, body:, idempotency_key:)
+        @http.post("/escrows/#{escrow_id}/contributions", body, idempotency_key: idempotency_key)
+      end
+
+      def set_payee(escrow_id:, body:, idempotency_key:)
+        @http.post("/escrows/#{escrow_id}/set-payee", body, idempotency_key: idempotency_key)
+      end
+
+      def cancel_pooled_escrow(escrow_id:, idempotency_key:)
+        @http.post("/escrows/#{escrow_id}/cancel-pool", {}, idempotency_key: idempotency_key)
+      end
+
       def open_dispute(escrow_id:, tx_hash:)
         @http.post("/escrows/#{escrow_id}/open-dispute", { tx_hash: tx_hash })
       end
